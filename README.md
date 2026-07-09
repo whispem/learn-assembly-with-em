@@ -39,7 +39,7 @@ Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes o
 - [x] hello world (syscalls, registers, variables — the usual)
 - [x] max of three, fibonacci, factorial
 - [x] quicksort (recursion, stack frames, array manipulation)
-- [ ] `cat`, `wc`, `ls`, `grep` — yes, all four. still warm-up
+- [x] `cat`, `wc`, `ls`, `grep` — yes, all four. still warm-up
 
 ### The real stuff
 
