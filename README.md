@@ -43,9 +43,9 @@ Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes o
 
 ### The real stuff
 
-- [ ] `printf` from scratch (varargs by hand, format parsing, the works)
-- [ ] `malloc` from scratch (`brk`/`mmap`, free lists, alignment)
-- [ ] a shell — `fork`, `execve`, pipes, redirections
+- [x] `printf` from scratch (varargs by hand, format parsing, the works)
+- [x] `malloc` from scratch (`brk`/`mmap`, free lists, alignment)
+- [x] a shell — `fork`, `execve`, pipes, redirections
 - [ ] an HTTP server in raw syscalls (`socket`, `bind`, `listen`, `accept`)
 - [ ] threads with `clone()` + my own mutex (hello `futex`)
 - [ ] SHA-256 in pure asm
