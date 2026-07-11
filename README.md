@@ -20,7 +20,8 @@ make        # binaries land in bin/
 
 ### on macOS
 
-The target is Linux. Run it in a container:
+The target is Linux, so run it in a container. Any OCI runtime works — Docker,
+Podman, Colima, OrbStack — they all read the same `Dockerfile`:
 
 ```sh
 docker build -t asm .
@@ -28,9 +29,39 @@ docker run --rm -it -v "$PWD":/asm asm
 make        # inside the container
 ```
 
-Or zero commands: open the repo in VS Code with the Dev Containers extension and hit "Reopen in Container".
+What I actually use: [OrbStack](https://orbstack.dev) + VS Code's Dev Containers
+extension. Open the repo, "Reopen in Container", and the terminal drops you
+straight into Linux with `make` ready — no container commands at all. On Apple
+Silicon, Rosetta handles the x86 translation.
 
-Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes on pure-bss load segments (`rosetta error: bss_size overflow`).
+Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes on
+pure-bss load segments (`rosetta error: bss_size overflow`).
+
+## Usage
+
+```sh
+# warm-up
+./bin/max3 4 17 9                       # -> 17
+./bin/fib 10                            # -> 55
+./bin/factorial 5                       # -> 120
+./bin/quicksort 3 1 4 1 5 9 2 6         # -> sorted
+
+# coreutils (match their GNU counterparts)
+./bin/cat README.md
+./bin/wc README.md
+./bin/ls .
+./bin/grep syscall warmup/hello.asm
+cat README.md | ./bin/grep piscine      # they pipe, too
+
+# the real stuff
+./bin/printf                            # demo: format specifiers, matches glibc
+./bin/malloc                            # demo: alloc/free/coalesce assertions
+./bin/threads                           # race without a lock, correct with one
+printf 'abc' | ./bin/sha256             # -> matches sha256sum
+./bin/mandelbrot                        # AVX2 fractal, 8 pixels per iteration
+./bin/shell                             # a shell: em$ prompt, pipes, redirections
+./bin/tetris                            # a/d move, w rotate, s drop, q quit
+```
 
 ## Roadmap
 
@@ -49,8 +80,8 @@ Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes o
 - [x] an HTTP server in raw syscalls (`socket`, `bind`, `listen`, `accept`)
 - [x] threads with `clone()` + my own mutex (hello `futex`)
 - [x] SHA-256 in pure asm
-- [ ] Mandelbrot, vectorized with AVX2
-- [ ] Tetris in the terminal (Pong is cute)
+- [x] Mandelbrot, vectorized with AVX2
+- [x] Tetris in the terminal (Pong is cute)
 
 ### Boss fights
 
