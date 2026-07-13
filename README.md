@@ -85,7 +85,7 @@ printf 'abc' | ./bin/sha256             # -> matches sha256sum
 
 ### Boss fights
 
-- [ ] **[AMBITIOUS]** a Forth interpreter
+- [x] **[AMBITIOUS]** a Forth interpreter
 - [ ] **[VERY AMBITIOUS]** a self-hosting assembler — written in assembly, assembling itself
 - [ ] **[UNREASONABLE]** a bootloader + bare-metal hello world. no OS, just me and the CPU
 - [ ] **[SEEK HELP]** a mini-kernel with its own syscalls
