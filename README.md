@@ -29,13 +29,11 @@ docker run --rm -it -v "$PWD":/asm asm
 make        # inside the container
 ```
 
-What I actually use: [OrbStack](https://orbstack.dev) + VS Code's Dev Containers
-extension. Open the repo, "Reopen in Container", and the terminal drops you
-straight into Linux with `make` ready — no container commands at all. On Apple
-Silicon, Rosetta handles the x86 translation.
+What I actually use: [OrbStack](https://orbstack.dev) + VS Code's Dev Containers extension. 
+Open the repo, "Reopen in Container", and the terminal drops you straight into Linux with `make` ready — no container commands at all. 
+On Apple Silicon, Rosetta handles the x86 translation.
 
-Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes on
-pure-bss load segments (`rosetta error: bss_size overflow`).
+Note: buffers live in `.data`, not `.bss` — Rosetta's x86 translation chokes on pure-bss load segments (`rosetta error: bss_size overflow`).
 
 ## Usage
 
@@ -61,6 +59,9 @@ printf 'abc' | ./bin/sha256             # -> matches sha256sum
 ./bin/mandelbrot                        # AVX2 fractal, 8 pixels per iteration
 ./bin/shell                             # a shell: em$ prompt, pipes, redirections
 ./bin/tetris                            # a/d move, w rotate, s drop, q quit
+
+# boss fights
+./bin/forth                             # a Forth REPL: `2 3 + .` -> 5, define words with `: ;`
 ```
 
 ## Roadmap
