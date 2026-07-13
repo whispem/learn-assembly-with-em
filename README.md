@@ -20,8 +20,7 @@ make        # binaries land in bin/
 
 ### on macOS
 
-The target is Linux, so run it in a container. Any OCI runtime works — Docker,
-Podman, Colima, OrbStack — they all read the same `Dockerfile`:
+The target is Linux, so run it in a container. Any OCI runtime works — Docker, Podman, Colima, OrbStack — they all read the same `Dockerfile`:
 
 ```sh
 docker build -t asm .
@@ -62,6 +61,10 @@ printf 'abc' | ./bin/sha256             # -> matches sha256sum
 
 # boss fights
 ./bin/forth                             # a Forth REPL: `2 3 + .` -> 5, define words with `: ;`
+
+# miniasm: an x86-64 assembler that emits a runnable ELF, byte-identical to NASM
+printf 'mov rax, 60\nmov rdi, 42\nsyscall\n' > /tmp/t.asm
+./bin/miniasm /tmp/prog < /tmp/t.asm && chmod +x /tmp/prog && /tmp/prog; echo $?   # -> 42
 ```
 
 ## Roadmap
@@ -87,7 +90,7 @@ printf 'abc' | ./bin/sha256             # -> matches sha256sum
 ### Boss fights
 
 - [x] **[AMBITIOUS]** a Forth interpreter
-- [ ] **[VERY AMBITIOUS]** a self-hosting assembler — written in assembly, assembling itself
+- [x] **[VERY AMBITIOUS]** a self-hosting assembler — written in assembly, assembling itself
 - [ ] **[UNREASONABLE]** a bootloader + bare-metal hello world. no OS, just me and the CPU
 - [ ] **[SEEK HELP]** a mini-kernel with its own syscalls
 
