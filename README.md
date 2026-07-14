@@ -20,7 +20,8 @@ make        # binaries land in bin/
 
 ### on macOS
 
-The target is Linux, so run it in a container. Any OCI runtime works — Docker, Podman, Colima, OrbStack — they all read the same `Dockerfile`:
+The target is Linux, so run it in a container. 
+Any OCI runtime works — Docker, Podman, Colima, OrbStack — they all read the same `Dockerfile`:
 
 ```sh
 docker build -t asm .
@@ -65,6 +66,10 @@ printf 'abc' | ./bin/sha256             # -> matches sha256sum
 # miniasm: an x86-64 assembler that emits a runnable ELF, byte-identical to NASM
 printf 'mov rax, 60\nmov rdi, 42\nsyscall\n' > /tmp/t.asm
 ./bin/miniasm /tmp/prog < /tmp/t.asm && chmod +x /tmp/prog && /tmp/prog; echo $?   # -> 42
+
+# bootloader: a 512-byte boot sector, run in an emulator (exit QEMU with Ctrl-A then X)
+nasm -f bin bootloader/boot.asm -o bootloader/boot.bin
+qemu-system-x86_64 -drive format=raw,file=bootloader/boot.bin -nographic
 ```
 
 ## Roadmap
@@ -91,7 +96,7 @@ printf 'mov rax, 60\nmov rdi, 42\nsyscall\n' > /tmp/t.asm
 
 - [x] **[AMBITIOUS]** a Forth interpreter
 - [x] **[VERY AMBITIOUS]** a self-hosting assembler — written in assembly, assembling itself
-- [ ] **[UNREASONABLE]** a bootloader + bare-metal hello world. no OS, just me and the CPU
+- [x] **[UNREASONABLE]** a bootloader + bare-metal hello world. no OS, just me and the CPU
 - [ ] **[SEEK HELP]** a mini-kernel with its own syscalls
 
 ## TODO
